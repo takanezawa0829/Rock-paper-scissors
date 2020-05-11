@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>Rock-paper-scissors</title>
+ <meta name="description" content="じゃんけんゲーム">
+ <meta name="keywords" content="じゃんけんゲーム">
+ <!--[if lt IE 9]>
+ <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+ <![endif]-->
+ <style>
+   *{
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+   }
+   .body{
+      background-color: skyblue;
+      margin: 0 auto;
+      max-width: 960px;
+   }
+   .header{
+      margin: 25px;
+      font-size: 23px;
+      text-align: center;
+   }
+   .header a{
+      color: rgb(255, 187, 0);
+      text-decoration: none;
+   }
+   .header a:visited{
+      color: rgb(255, 187, 0);
+      text-decoration: none;
+   }
+   .header a:hover{
+      color: yellow;
+      text-decoration: none;
+   }
+   h1{
+      font-size: 60px;
+   }
+   .human{
+      display: flex;
+   }
+   .human h3{
+      margin: 10px 22.3%;
+   }
+   .rock-paper-scissors{
+      display: flex;
+   }
+   .rock-paper-scissors div{
+      width: 50%;
+      padding-bottom: 50%;
+      background-color: rgb(255, 253, 136);
+      border: solid 2px lightgray;
+   }
+   h4{
+      font-size: 40px;
+   }
+   .select img{
+      width: 32.7%;
+   }
+   .reload{
+      display: inline-block;
+      margin-top: 40px;
+      font-size: 40px;
+      padding: 30px;
+      background-color: rgb(255, 253, 136);
+   }
+   .Hand-rock{
+      background-image: url("images/rock.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+   .Hand-paper{
+      background-image: url("images/paper.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+   .Hand-scissors{
+      background-image: url("images/scissors.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+   .winner{
+      background-color: pink;
+   }
+   .looser{
+      background-color: gray;
+   }
+   .draw{
+      background-color: greenyellow;
+   }
+ </style>
+ </head>
+ 
+ <body class="body" id="body">
+   <!----- ヘッダー ----->
+   <header class="header">
+      <a href="index.html"><h1>じゃんけんゲーム</h1></a>
+   </header>
+   <!----- ヘッダー END ----->
+   
+   <!----- メインコンテンツ ----->
+   <main class="main">
+      <div class="human">
+         <h3>あなた</h3>
+         <h3>相手</h3>
+      </div>
+      <div class="rock-paper-scissors">
+         <div id="mySpace"></div>
+         <div id="opponentSpace"></div>
+      </div>
+      <h4>出す手を選択してください</h4>
+      <div class="select">
+         <img src="images/rock.png" alt="グー" id="rock">
+         <img src="images/paper.png" alt="パー" id="paper">
+         <img src="images/scissors.png" alt="チョキ" id="scissors">
+      </div>
+      <p class="reload" id="reload">もう一度</p>
+   </main>
+   <!----- メインコンテンツ END ----->
+
+   <script>
+      const body = document.getElementById("body");
+
+      const reload = document.getElementById("reload");
+
+      const mySpace = document.getElementById("mySpace");
+      const opponentSpace = document.getElementById("opponentSpace");
+
+      const rock = document.getElementById("rock");
+      const paper = document.getElementById("paper");
+      const scissors = document.getElementById("scissors");
+
+      const opponentHand = Math.floor(Math.random() * 3);
+      function opponentHandResult() {
+         if(opponentHand === 0){
+            opponentSpace.classList.add("Hand-rock");
+         }else if(opponentHand === 1){
+            opponentSpace.classList.add("Hand-paper");
+         }else if(opponentHand === 2){
+            opponentSpace.classList.add("Hand-scissors");
+         }
+      }
+      function Result(num) {
+         if(num === 0){
+            mySpace.classList.add("Hand-rock");
+         }else if(num === 1){
+            mySpace.classList.add("Hand-paper");
+         }else if(num === 2){
+            mySpace.classList.add("Hand-scissors");
+         }
+         opponentHandResult();
+      }
+      rock.addEventListener("click", () => {
+         const myResult = 0;
+         Result(myResult);
+         if(opponentHand === 0){
+            body.classList.add("draw");
+         }else if(opponentHand === 1){
+            body.classList.add("looser");
+         }else if(opponentHand === 2){
+            body.classList.add("winner");
+         }
+      });
+      paper.addEventListener("click", () => {
+         const myResult = 1;
+         Result(myResult);
+         if(opponentHand === 0){
+            body.classList.add("winner");
+         }else if(opponentHand === 1){
+            body.classList.add("draw");
+         }else if(opponentHand === 2){
+            body.classList.add("looser");
+         }
+      });
+      scissors.addEventListener("click", () => {
+         const myResult = 2;
+         Result(myResult);
+         if(opponentHand === 0){
+            body.classList.add("looser");
+         }else if(opponentHand === 1){
+            body.classList.add("winner");
+         }else if(opponentHand === 2){
+            body.classList.add("draw");
+         }
+      });
+
+      reload.addEventListener("click", () => {
+         window.location.reload();
+      });
+   </script>
+ </body>
+</html>
